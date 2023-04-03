@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import { userRouter } from "./routes/userRoutes.js";
 
 dotenv.config();
 const port = process.env.PORT;
@@ -18,6 +19,12 @@ try {
   console.log(error);
 }
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+app.use("/users", userRouter);
+
 app.get("/", (req, res) => {
-  res.send("hello world");
+  res.send("hello world from ConnectStart");
 });
